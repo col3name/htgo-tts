@@ -26,6 +26,7 @@ type Speech struct {
 	Folder   string
 	Language string
 	Handler  handlers.PlayerInterface
+	Volume   int
 }
 
 // Creates a speech file with a given name
@@ -47,14 +48,29 @@ func (speech *Speech) CreateSpeechFile(text string, fileName string) (string, er
 // Plays an existent .mp3 file
 func (speech *Speech) PlaySpeechFile(fileName string) error {
 	if speech.Handler == nil {
-		mplayer := handlers.MPlayer{}
-		return mplayer.Play(fileName)
+		mplayer := handlers.MPlayer{Volume: speech.Volume}
+		err := mplayer.Play(fileName)
+		speech.deleteFile(fileName)
+		return err
 	}
 
-	return speech.Handler.Play(fileName)
+	err := speech.Handler.Play(fileName)
+	speech.deleteFile(fileName)
+
+	return err
 }
 
-// Speak downloads speech and plays it using mplayer
+func (speech *Speech) deleteFile(fileName string) {
+	path, err := os.Executable()
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = os.Remove(path + "\\" + fileName)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
 func (speech *Speech) Speak(text string) error {
 
 	var err error
@@ -68,9 +84,6 @@ func (speech *Speech) Speak(text string) error {
 	return speech.PlaySpeechFile(fileName)
 }
 
-/**
- * Create the folder if does not exists.
- */
 func (speech *Speech) createFolderIfNotExists(folder string) error {
 	dir, err := os.Open(folder)
 	if os.IsNotExist(err) {
