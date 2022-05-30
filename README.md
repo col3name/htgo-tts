@@ -11,12 +11,12 @@ go get "github.com/hegedustibor/htgo-tts"
 
 ### Update
 ```
-go get -u "github.com/hegedustibor/htgo-tts"
+go get -u "github.com/col3name/htgo-tts"
 ```
 
 ### Remove
 ```
-go clean -i "github.com/hegedustibor/htgo-tts"
+go clean -i "github.com/col3name/htgo-tts"
 ```
 
 ### Add to ```go.mod``` file
