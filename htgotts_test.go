@@ -1,8 +1,8 @@
 package htgotts
 
 import (
-	"github.com/hegedustibor/htgo-tts/handlers"
-	"github.com/hegedustibor/htgo-tts/voices"
+	"github.com/col3name/htgo-tts/handlers"
+	"github.com/col3name/htgo-tts/voices"
 
 	"testing"
 )

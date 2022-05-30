@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/hegedustibor/htgo-tts/handlers"
+	"github.com/col3name/htgo-tts/handlers"
 )
 
 /**
