@@ -6,18 +6,21 @@
 
 ### Install
 ```
-go get "github.com/col3name/htgo-tts"
+go get "github.com/hegedustibor/htgo-tts"
 ```
 
 ### Update
 ```
-go get -u "github.com/col3name/htgo-tts"
+go get -u "github.com/hegedustibor/htgo-tts"
 ```
 
 ### Remove
 ```
-go clean -i "github.com/col3name/htgo-tts"
+go clean -i "github.com/hegedustibor/htgo-tts"
 ```
+
+### Add to ```go.mod``` file
+```replace github.com/hegedustibor/htgo-tts latest => github.com/col3name/htgo-tts latest```
 
 ### Import
 ```go
