@@ -3,8 +3,6 @@
 # htgo-tts
 [https://hegedustibor.github.io/htgo-tts/](https://hegedustibor.github.io/htgo-tts/)
 
-### Requirement:
-- mplayer (optional)
 
 ### Install
 ```
@@ -29,7 +27,7 @@ import "github.com/col3name/htgo-tts/voices"
 
 ### Use
 ```go
-speech := htgotts.Speech{Folder: "audio", Language: voices.English}
+speech := htgotts.Speech{Folder: "audio", Language: voices.English, Volume: 0, Speed: 1}
 speech.Speak("Your sentence.")
 ```
 
@@ -41,7 +39,7 @@ import (
     voices "github.com/col3name/htgo-tts/voices"
 )
 
-speech := htgotts.Speech{Folder: "audio", Language: voices.English, Handler: &handlers.MPlayer{}}
+speech := htgotts.Speech{Folder: "audio", Language: voices.English, Volume: 0, Speed: 1}
 speech.Speak("Your sentence.")
 ```
 

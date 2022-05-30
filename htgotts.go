@@ -4,12 +4,11 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
+	"github.com/col3name/htgo-tts/handlers"
 	"io"
 	"net/http"
 	"net/url"
 	"os"
-
-	"github.com/col3name/htgo-tts/handlers"
 )
 
 /**
@@ -18,7 +17,7 @@ import (
  *
  * Use:
  *
- * speech := htgotts.Speech{Folder: "audio", Language: "en", Handler: MPlayer}
+ * speech := htgotts.Speech{Folder: "audio", Language: "en"}
  */
 
 // Speech struct
@@ -26,7 +25,8 @@ type Speech struct {
 	Folder   string
 	Language string
 	Handler  handlers.PlayerInterface
-	Volume   int
+	Volume   float64
+	Speed    float64
 }
 
 // Creates a speech file with a given name
@@ -48,16 +48,14 @@ func (speech *Speech) CreateSpeechFile(text string, fileName string) (string, er
 // Plays an existent .mp3 file
 func (speech *Speech) PlaySpeechFile(fileName string) error {
 	if speech.Handler == nil {
-		mplayer := handlers.MPlayer{Volume: speech.Volume}
-		err := mplayer.Play(fileName)
-		speech.deleteFile(fileName)
+		speech.Handler = &handlers.BeepPlayer{Volume: speech.Volume, Speed: 1}
+	}
+	err := speech.Handler.Play(fileName)
+	if err != nil {
 		return err
 	}
-
-	err := speech.Handler.Play(fileName)
 	speech.deleteFile(fileName)
-
-	return err
+	return nil
 }
 
 func (speech *Speech) deleteFile(fileName string) {
@@ -72,7 +70,6 @@ func (speech *Speech) deleteFile(fileName string) {
 }
 
 func (speech *Speech) Speak(text string) error {
-
 	var err error
 	generatedHashName := speech.generateHashName(text)
 
@@ -100,7 +97,9 @@ func (speech *Speech) createFolderIfNotExists(folder string) error {
 func (speech *Speech) downloadIfNotExists(fileName string, text string) error {
 	f, err := os.Open(fileName)
 	if err != nil {
-		response, err := http.Get(fmt.Sprintf("http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=%s&tl=%s", url.QueryEscape(text), speech.Language))
+		urlString := fmt.Sprintf("http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=%s&tl=%s", url.QueryEscape(text), speech.Language)
+		fmt.Println(urlString)
+		response, err := http.Get(urlString)
 		if err != nil {
 			return err
 		}
