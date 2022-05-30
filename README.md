@@ -8,23 +8,23 @@
 
 ### Install
 ```
-go get "github.com/hegedustibor/htgo-tts"
+go get "github.com/col3name/htgo-tts"
 ```
 
 ### Update
 ```
-go get -u "github.com/hegedustibor/htgo-tts"
+go get -u "github.com/col3name/htgo-tts"
 ```
 
 ### Remove
 ```
-go clean -i "github.com/hegedustibor/htgo-tts"
+go clean -i "github.com/col3name/htgo-tts"
 ```
 
 ### Import
 ```go
-import "github.com/hegedustibor/htgo-tts"
-import "github.com/hegedustibor/htgo-tts/voices"
+import "github.com/col3name/htgo-tts"
+import "github.com/col3name/htgo-tts/voices"
 ```
 
 ### Use
@@ -36,9 +36,9 @@ speech.Speak("Your sentence.")
 ### Use with Handlers
 ```go
 import (
-    htgotts "github.com/hegedustibor/htgo-tts"
-    handlers "github.com/hegedustibor/htgo-tts/handlers"
-    voices "github.com/hegedustibor/htgo-tts/voices"
+    htgotts "github.com/col3name/htgo-tts"
+    handlers "github.com/col3name/htgo-tts/handlers"
+    voices "github.com/col3name/htgo-tts/voices"
 )
 
 speech := htgotts.Speech{Folder: "audio", Language: voices.English, Handler: &handlers.MPlayer{}}

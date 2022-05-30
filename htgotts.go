@@ -100,8 +100,7 @@ func (speech *Speech) createFolderIfNotExists(folder string) error {
 func (speech *Speech) downloadIfNotExists(fileName string, text string) error {
 	f, err := os.Open(fileName)
 	if err != nil {
-		url := fmt.Sprintf("http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=%s&tl=%s", url.QueryEscape(text), speech.Language)
-		response, err := http.Get(url)
+		response, err := http.Get(fmt.Sprintf("http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=%s&tl=%s", url.QueryEscape(text), speech.Language))
 		if err != nil {
 			return err
 		}
@@ -116,7 +115,7 @@ func (speech *Speech) downloadIfNotExists(fileName string, text string) error {
 		return err
 	}
 
-	f.Close()
+	defer f.Close()
 	return nil
 }
 
